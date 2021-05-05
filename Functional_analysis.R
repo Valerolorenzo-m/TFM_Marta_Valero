@@ -3,7 +3,7 @@
 
 if (type=="array"){
   
-  annotation(data) <- "hgu133plus2.db" #Cambiar 
+  annotation(data) <- array.name #Cambiar 
   
   # Alinea los resultados del array a los genes incluidos en el mismo
   # y filtra los resultados con mayor varianza 
