@@ -24,7 +24,12 @@ phdata<-read.AnnotatedDataFrame(pheno)
 
 genome<- "namegenome.fa" # A cambiar por el usuario
 
-##########
+# En caso de datos procedentes de array, fijar el nombre
+# del array utilizado
+
+array.name<-"array.name.db"
+
+######################
 
 if (type=="array"){ # Si los datos proceden de un array
   
@@ -72,4 +77,4 @@ if (type=="array"){ # Si los datos proceden de un array
   rawdata<- readMSData(names, pdata = phdata)
 } 
 
-# Resultado: un objeto "rawdata" que sera empleado en analisis posteriores.
+# Resultado: un objeto, "rawdata", que sera empleado en analisis posteriores.
