@@ -27,7 +27,7 @@ genome<- "namegenome.fa" # A cambiar por el usuario
 # En caso de datos procedentes de array, fijar el nombre
 # del array utilizado
 
-array.name<-"array.name.db"
+array.name<-"array.name.db" # A cambiar por el usuario
 
 ######################
 
