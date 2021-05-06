@@ -12,6 +12,8 @@ BiocManager::install("oligo")
 BiocManager::install("ShortRead")
 BiocManager::install("Rsubread")
 BiocManager::install("genefilter")
+BiocManager::install("edgeR")
+install.packages("stats")
 
 # Cambiar por el paquete del array correspondiente, en su caso:
 
@@ -25,6 +27,8 @@ library(MSnbase)
 library(ShortRead)
 library(Rsubread)
 library(genefilter)
+library(stats)
+library(edgeR)
 library(hgu133plus2.db) # Cambiar por el paquete correspondiente
 
 ###################################
