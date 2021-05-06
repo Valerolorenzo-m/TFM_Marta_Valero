@@ -84,21 +84,15 @@ if (type=="array"){
   data_aligned$genes<-annotation
   data_annotated<-data_aligned
   
-  if (nucleic.acid=="RNA"){
+  # Se filtran los genes poco expresados
     
-    # Se filtran los genes poco expresados
+  CPM <- cpm(data_annotated)
+  threshold<- CPM > 0.5
     
-    CPM <- cpm(data_annotated)
-    threshold<- CPM > 0.5
+  # Mantenemos los genes que al menos presentan dos entradas con CMP>0.5
     
-    # Mantenemos los genes que al menos presentan dos entradas con CMP>0.5
-    
-    keep <- rowSums(thresh) >= 2
-    data_annotated<-keep
-    
-  }else{
-    
-    data_annotated<-data_annotated}
+  keep <- rowSums(thresh) >= 2
+  data_annotated<-keep
   
 }else if(type=="MS"){
   
