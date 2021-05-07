@@ -2,22 +2,22 @@
 # Analisis funcional: alineamiento de los datos
 # Determinacion de genes diferencialmente expresados/presentes
 
-# En el caso de microarrays:
 # Definir las matrices de diseño y de contrastes:
 
 groups<-c() # Un vector con los grupos. A completar por el usuario
+# Se puede definir a partir del objeto phdata
+
 matriz_dis<- model.matrix(~ 0 + groups)
 colnames(matriz_dis)<-levels(groups)
+
 matriz_cont<-makeContrasts( , levels = matriz_dis) # A definir por el usuario
 contrasts<-c() # Crear un vector con los nombres de los contrastes
                # (Deben coincidir con sus nombres en la matriz)
 contraste_int<- # Seleccionar el contraste de interes ("casos")
 universo<- # Definir el universo de genes a testar
-
-# En el caso de secuencias:
-
-organism<-"organismo.db" # A completar por el usuario
-groups<-phdata$ # Guardar a partir del objeto phdata los grupos de interés
+organism<-"" # A completar por el usuario
+source("functions/get_annotation.R")
+organism_db <- get_annotation(organism)
 
 ##############################
 
@@ -92,7 +92,32 @@ if (type=="array"){
   # Mantenemos los genes que al menos presentan dos entradas con CMP>0.5
     
   keep <- rowSums(thresh) >= 2
-  data_annotated<-keep
+  data_annotated<-data_annotated[keep, keep.lib.sizes=FALSE]
+  
+  # Se normalizan los datos
+  
+  data_annotated <- calcNormFactors(data_annotated)
+  
+  # Se crea un objeto voom
+  
+  v<-voom(data_annotated, matriz_dis, plot=FALSE)
+  
+  # Se estima el modelo
+  
+  mod<-lmFit(v, matriz_dis)
+  modelo<-contrasts.fit(mod, matriz_cont)
+  modelo<-eBayes(modelo)
+  
+  data_annot<-topTable (modelo, number=nrow(modelo), coef=contraste_int)
+  
+   # Se asocian los genes presentes en el objeto topTab a sus ID (anotación):
+  
+  whichGenes<-data_annot["adj.P.Val"]<0.15
+  selectedIDs <- rownames(data_annot)[whichGenes]
+  EntrezIDs<- select(array.name, selectedIDs, c("ENTREZID"))
+  EntrezIDs <- EntrezIDs$ENTREZID
+  names(data_annot)<-names(EntrezIDs)
+  
   
 }else if(type=="MS"){
   
