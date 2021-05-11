@@ -110,7 +110,7 @@ if (type=="array"){
   
   data_annot<-topTable (modelo, number=nrow(modelo), coef=contraste_int)
   
-   # Se asocian los genes presentes en el objeto topTab a sus ID (anotación):
+   # Se asocian los genes presentes en el objeto topTab a sus ID (anotacion):
   
   whichGenes<-data_annot["adj.P.Val"]<0.15
   selectedIDs <- rownames(data_annot)[whichGenes]
@@ -121,7 +121,9 @@ if (type=="array"){
   
 }else if(type=="MS"){
   
+  # Al emplearse el paquete "DEP" no se requieren pasos adicionales de anotacion:
   
+  data_annot<-data
   
 }
 
