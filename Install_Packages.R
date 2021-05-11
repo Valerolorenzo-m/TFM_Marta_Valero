@@ -14,6 +14,7 @@ BiocManager::install("Rsubread")
 BiocManager::install("genefilter")
 BiocManager::install("edgeR")
 BiocManager::install("limma")
+BiocManager::install("DEP")
 install.packages("stats")
 
 # Cambiar por el paquete del array correspondiente, en su caso:
@@ -31,6 +32,7 @@ library(genefilter)
 library(stats)
 library(edgeR)
 library(limma)
+library(DEP)
 library(hgu133plus2.db) # Cambiar por el paquete correspondiente
 
 ###################################
