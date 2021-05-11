@@ -4,6 +4,12 @@
 # Es recomendable ajustar los parametros segun los resultados del 
 # control de calidad
 
+# Para datos de espectrometría de masas, seleccionar el método
+# de cuantificación y los reporters:
+
+qmethod <- "NSAF" # Cambiar segun la documentacion
+rep <- reporters # A cambiar por el usuario
+
 if (type=="array"){
 
   # Normalizacion
@@ -23,13 +29,17 @@ if (type=="array"){
 }else if(type=="MS"){
   
   # Se define el metodo de recuento:
+   
+  data.quant <- quantify(rawdata, reporters = rep, method = qmethod) 
   
-  qmethod <- "NSAF" # Cambiar segun la documentacion
+  # Para operar con el paquete "DEP", en primer lugar 
+  # se convierte el MsnSet a un objeto de tipo SummarizedExperiment
   
-  data.quant <- quantify(rawdata, method = qmethod)
+  data.se <- as(data.quant, "SummarizedExperiment")
   
-  # Se guardan los datos de intensidad en un dataframe
+  # Se filtran los datos NA, y se normalizan los datos
   
-  data<-data.frame(Signal = rowSums(exprs(data.quant)))
-  
+  data.filt <- filter_missval(data.se, thr = 0)
+  data <- normalize_vsn(data.filt)
+
 }
