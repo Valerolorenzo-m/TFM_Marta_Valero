@@ -8,26 +8,27 @@
 
 type<-"array" # A cambiar por el usuario
 
-# En caso de datos genomicos/transcriptomicos, 
-# se debe fijar el tipo de datos ("DNA"/"RNA"):
-
-nucleic.acid<-"DNA" # A cambiar por el usuario
-
 # Posteriormente, se debe introducir el nombre del archivo
 # que contenga los datos fenotipicos en su caso
 
 pheno<-"namepheno.csv" # A cambiar por el usuario
 phdata<-read.AnnotatedDataFrame(pheno)
 
+# En caso de datos procedentes de array, fijar el nombre
+# del array utilizado
+
+array.name<-"array.name.db" # A cambiar por el usuario
+
 # En caso de tratarse de analisis de datos de secuenciacion, 
 # se debe aportar el archivo para la creacion del indice
 
 genome<- "namegenome.fa" # A cambiar por el usuario
 
-# En caso de datos procedentes de array, fijar el nombre
-# del array utilizado
+# Para datos de espectrometría de masas, seleccionar el método
+# de cuantificación y los reporters:
 
-array.name<-"array.name.db" # A cambiar por el usuario
+qmethod <- "NSAF" # Cambiar segun la documentacion
+rep <- reporters # A cambiar por el usuario
 
 ######################
 
@@ -74,7 +75,16 @@ if (type=="array"){ # Si los datos proceden de un array
   
   names <- list.files(filepath, pattern=".mzML",
                       full.names=TRUE, ignore.case=TRUE)
-  rawdata<- readMSData(names, pdata = phdata)
+  data<- readMSData(names, pdata = phdata)
+  
+   # Se define el metodo de recuento:
+   
+  data.quant <- quantify(rawdata, reporters = rep, method = qmethod) 
+  
+  # Para operar con el paquete "DEP", en primer lugar 
+  # se convierte el MsnSet a un objeto de tipo SummarizedExperiment
+  
+  rawdata <- as(data.quant, "SummarizedExperiment")
 } 
 
 # Resultado: un objeto, "rawdata", que sera empleado en analisis posteriores.
