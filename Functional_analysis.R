@@ -19,6 +19,12 @@ organismo<-"" # A completar por el usuario
 source("functions/get_annotation.R")
 organism_db <- get_annotation(organismo)
 
+# Para datos de MS:
+
+basedatos <- "" # Archivo con la base de datos a consultar
+enzima<- "" # Enzima empleada en el preprocesamiento
+instrumento <- "" # Nombre del instrumento empleado para la espectometria
+
 ##############################
 
 if (type=="array"){
