@@ -15,9 +15,9 @@ contrasts<-c() # Crear un vector con los nombres de los contrastes
                # (Deben coincidir con sus nombres en la matriz)
 contraste_int<- # Seleccionar el contraste de interes ("casos")
 universo<- # Definir el universo de genes a testar
-organism<-"" # A completar por el usuario
+organismo<-"" # A completar por el usuario
 source("functions/get_annotation.R")
-organism_db <- get_annotation(organism)
+organism_db <- get_annotation(organismo)
 
 ##############################
 
@@ -80,7 +80,7 @@ if (type=="array"){
   
   # Se anotan los genes para añadir su nombre completo y reducido (symbol)
   
-  annotation <- select(organism,keys=rownames(data_aligned$counts),columns=c("ENTREZID","SYMBOL","GENENAME"))
+  annotation <- select(organismo,keys=rownames(data_aligned$counts),columns=c("ENTREZID","SYMBOL","GENENAME"))
   data_aligned$genes<-annotation
   data_annotated<-data_aligned
   
