@@ -121,9 +121,22 @@ if (type=="array"){
   
 }else if(type=="MS"){
   
-  # Al emplearse el paquete "DEP" no se requieren pasos adicionales de anotacion:
+  # En primer lugar, se crea el objeto "param" con los parametros a emplear
+  # en la anotación
   
-  data_annot<-data
+  param <- msgfPar(database = system.file("extdata",
+                                          basedatos,
+                                          package="MSGFplus"),
+                   tolerance = "10 ppm",
+                   enzyme = enzima)
+  
+  instrument(param) <- instrumento
+  tda(param) <- TRUE
+  ntt(param) <- 2
+  
+  # Posteriormente, se lleva a cabo el analisis
+  
+  data_annot <- runMSGF(param, data)
   
 }
 
