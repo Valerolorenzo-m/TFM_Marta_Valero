@@ -11,9 +11,6 @@ if (type=="array"){
   
   data<-rma(rawdata)
   
-  # Opcional: generar un informe de calidad de los datos
-  
-  arrayQualityMetrics(data_norm, outdir="results/arrayQualityMetrics_report")
   
 }else if(type=="seq"){
   
