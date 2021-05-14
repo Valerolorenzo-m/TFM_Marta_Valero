@@ -15,6 +15,7 @@ BiocManager::install("genefilter")
 BiocManager::install("edgeR")
 BiocManager::install("limma")
 BiocManager::install("DEP")
+BiocManager::install("MSGFplus")
 install.packages("stats")
 
 # Cambiar por el paquete del array correspondiente, en su caso:
@@ -33,6 +34,7 @@ library(stats)
 library(edgeR)
 library(limma)
 library(DEP)
+library(MSGFplus)
 library(hgu133plus2.db) # Cambiar por el paquete correspondiente
 
 ###################################
